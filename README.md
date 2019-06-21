@@ -16,7 +16,11 @@ Upload reports to BitBucket server for use with the Code Insights feature
 
 ## Features
 
-* TODO
+* Report failing lines from the output of `terraform fmt --diff -check -recursive
+
+## Usage
+
+
 
 ## Credits
 

@@ -13,16 +13,22 @@ def parse_args(args):
     """
 
     parser = argparse.ArgumentParser(description="Uploads information to code insights in BitBucket.")
-    parser.add_argument("-u", "--user", type=str, required=True, help="User to authenticate with BitBucket")
-    parser.add_argument("-p", "--password", type=str, default=None, help="Password to authenticated with BitBucket")
-    parser.add_argument("--report_key", type=str, required=True, help="BitBucket key for report.")
-    parser.add_argument("--report_title", type=str, required=True, help="Human readable title for report.")
-    parser.add_argument("--report_desc", type=str, required=True, help="Description for the report.")
-    parser.add_argument("--base_url", type=str, required=True, help="URL of the BitBucket server.")
-    parser.add_argument("--project_key", type=str, required=True, help="BitBucket key for the project.")
-    parser.add_argument("--repo_slug", type=str, required=True, help="Name of repo in BitBucket.")
-    parser.add_argument("--commit", type=str, required=True, help="Commit hash for the commit to upload the report to.")
-    parser.add_argument("--report_type", choices=['terraform', 'custom'], required=True, help="Report type")
+
+    auth_group = parser.add_argument_group("Authentication Options")
+    auth_group.add_argument("-u", "--user", type=str, required=True, help="User to authenticate with BitBucket")
+    auth_group.add_argument("-p", "--password", type=str, default=None, help="Password to authenticated with BitBucket")
+
+    report_info_group = parser.add_argument_group("Report Options", description="Options to configure the report")
+    report_info_group.add_argument("--report_key", type=str, required=True, help="BitBucket key for report.")
+    report_info_group.add_argument("--report_title", type=str, required=True, help="Human readable title for report.")
+    report_info_group.add_argument("--report_desc", type=str, required=True, help="Description for the report.")
+    report_info_group.add_argument("--report_type", choices=['terraform', 'custom'], required=True, help="Report type")
+
+    bitbucket_group = parser.add_argument_group("BitBucket Configuration", description="Info to access the repository and PR")
+    bitbucket_group.add_argument("--base_url", type=str, required=True, help="URL of the BitBucket server.")
+    bitbucket_group.add_argument("--project_key", type=str, required=True, help="BitBucket key for the project.")
+    bitbucket_group.add_argument("--repo_slug", type=str, required=True, help="Name of repo in BitBucket.")
+    bitbucket_group.add_argument("--commit", type=str, required=True, help="Commit hash for the commit to upload the report to.")
 
     custom_report_group = parser.add_argument_group("Custom Report Options", description="Arguments only for use with the custom report type.")
     custom_report_group.add_argument("--status", type=str, required=False, choices=["PASS", "FAIL"], help="Status of the report, PASS/FAIL.")
