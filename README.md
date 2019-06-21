@@ -12,7 +12,9 @@
 [![PyUp - Updates](https://pyup.io/repos/github/tomtom-international/bitbucket-code-insight-reports/shield.svg)](https://pyup.io/repos/github/tomtom-international/bitbucket-code-insight-reports/)
 
 
-Upload reports to BitBucket server for use with the Code Insights feature
+Upload reports to BitBucket server for use with the Code Insights feature.
+
+Designed to be extensible, so it can be hooked to anything that outputs file paths, line numbers and errors.
 
 ## Features
 
