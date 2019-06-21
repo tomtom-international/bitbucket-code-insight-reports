@@ -20,8 +20,14 @@ RUN python setup.py sdist \
   && pip install dist/*
 
 
+FROM alpine:latest as terraform_unzip
+
+RUN apk add --update unzip wget && wget https://releases.hashicorp.com/terraform/0.12.2/terraform_0.12.2_linux_amd64.zip
+RUN unzip terraform_0.12.2_linux_amd64.zip 
+
 FROM $PYTHON_BASE
 COPY --from=deploy_builder /opt/venv /opt/venv
+COPY --from=terraform_unzip /terraform /usr/local/bin
 
 ENV PATH="/opt/venv/bin:$PATH"
 ENTRYPOINT [""]
