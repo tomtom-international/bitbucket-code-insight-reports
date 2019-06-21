@@ -30,4 +30,4 @@ COPY --from=deploy_builder /opt/venv /opt/venv
 COPY --from=terraform_unzip /terraform /usr/local/bin
 
 ENV PATH="/opt/venv/bin:$PATH"
-ENTRYPOINT [""]
+ENTRYPOINT ["bitbucket-code-insight-reports"]
