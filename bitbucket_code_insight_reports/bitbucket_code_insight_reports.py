@@ -64,7 +64,7 @@ class TerraformReport(Report):
     """
     def __init__(self, auth, base_url, project_key, repo_slug, commit_id, key, title, description):
         terraform = Terraform()
-        return_code, annotations = terraform.fmt(capture_output=True, check=True, diff=True, recursive=True)
+        return_code, annotations, error = terraform.fmt(capture_output=True, check=True, diff=True, recursive=True)
 
         if return_code == 0:
             result = "PASS"

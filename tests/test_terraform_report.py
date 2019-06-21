@@ -45,7 +45,7 @@ def test_init(mock_terraform, gen_terraform_annotation):
     Tests the init function runs terraform fmt and processes the results
     """
     test_annotations, diff_output = gen_terraform_annotation([("test/infra/main.tf", 5), ("test/infra/provider.tf", 146)])
-    mock_terraform.return_value = (0, diff_output)
+    mock_terraform.return_value = (0, diff_output, "")
     test_report = TerraformReport("test", "test.coam", "test", "test", "test", "test", "test", "test")
 
 

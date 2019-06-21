@@ -34,13 +34,14 @@ def parse_args(args):
     custom_report_group.add_argument("--status", type=str, required=False, choices=["PASS", "FAIL"], help="Status of the report, PASS/FAIL.")
     custom_report_group.add_argument("--annotations", type=str, default=None, help="""Annotations in a JSON string as shown in
         https://docs.atlassian.com/bitbucket-server/rest/5.16.0/bitbucket-code-insights-rest.html#idm361726402736""")
+    
     return parser.parse_args(args)
 
 def main():
     """Console script for bitbucket_code_insight_reports."""
     args = parse_args(sys.argv[1:])
 
-    if password is None:
+    if args.password is None:
         password = getpass("Enter your BitBucket Server password: ")
     else:
         password = args.password
