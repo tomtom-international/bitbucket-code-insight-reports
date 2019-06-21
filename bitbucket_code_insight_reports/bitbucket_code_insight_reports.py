@@ -12,11 +12,20 @@ class Report:
     """
     Generates a basic report for BitBucket Code Insight
     """
-    def __init__(self, auth, base_url, project_key, repo_slug, commit_id, key, title, description, result, annotations):
+    def __init__(self, auth, base_url, project_key, repo_slug, commit_id, key, title, description, result, annotations, return_code=None):
         self.auth = auth
         self.title = title
         self.description = description
         self.result = result
+
+        if return_code is None:
+            if result == "PASS":
+                self.return_code = 0
+            else:
+                self.return_code = 1
+        else:
+            self.return_code = return_code
+
         self.url = self._build_base_report_url(base_url, project_key, repo_slug, commit_id, key)
         self.annotations = self._process_annotations(annotations)
 
@@ -71,7 +80,7 @@ class TerraformReport(Report):
         else:
             result = "FAIL"
 
-        super().__init__(auth, base_url, project_key, repo_slug, commit_id, key, title, description, result, annotations)
+        super().__init__(auth, base_url, project_key, repo_slug, commit_id, key, title, description, result, annotations, return_code)
 
     @staticmethod
     def _process_annotations(annotations_string):

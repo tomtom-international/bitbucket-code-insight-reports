@@ -55,7 +55,7 @@ def main():
 
     report.post_base_report()
     report.post_annotations()
-    return 0
+    return report.return_code
 
 
 if __name__ == "__main__":
