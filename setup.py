@@ -23,7 +23,7 @@ requirements = ["python-terraform==0.10.0", "requests==2.22.0"]
 
 setup_requirements = ["pytest-runner",]
 
-test_requirements = ["pytest", "pytest-cov", "coverage",]
+test_requirements = ["pytest", "pytest-cov", "coverage", "hypothesis",]
 
 setup(
     author=bitbucket_code_insight_reports.__author__,
