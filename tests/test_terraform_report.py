@@ -4,7 +4,7 @@ from unittest.mock import patch, mock_open, call, Mock
 
 from hypothesis import strategies as strat, given
 
-from bitbucket_code_insight_reports.bitbucket_code_insight_reports import TerraformReport
+from bitbucket_code_insight_reports.TerraformReport import TerraformReport
 
 @pytest.fixture
 def gen_terraform_annotation():
@@ -38,8 +38,7 @@ def gen_terraform_annotation():
     
     return _gen_terraform_annotation
 
-@patch("bitbucket_code_insight_reports.bitbucket_code_insight_reports.Terraform.cmd")
-
+@patch("bitbucket_code_insight_reports.TerraformReport.Terraform.cmd")
 def test_init(mock_terraform, gen_terraform_annotation):
     """
     Tests the init function runs terraform fmt and processes the results

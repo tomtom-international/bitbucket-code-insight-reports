@@ -3,7 +3,7 @@ import json
 
 from hypothesis import strategies as strat, given
 
-from bitbucket_code_insight_reports.bitbucket_code_insight_reports import Report
+from bitbucket_code_insight_reports.Report import Report
 
 @pytest.fixture
 def gen_annotations():
