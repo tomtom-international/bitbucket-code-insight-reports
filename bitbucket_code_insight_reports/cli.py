@@ -7,6 +7,7 @@ from getpass import getpass
 
 from bitbucket_code_insight_reports.Report import Report
 from bitbucket_code_insight_reports.TerraformReport import TerraformReport
+from bitbucket_code_insight_reports.GitDiffReport import GitDiffReport
 
 
 def parse_args(args):
@@ -14,6 +15,8 @@ def parse_args(args):
     """
 
     parser = argparse.ArgumentParser(description="Uploads information to code insights in BitBucket.")
+
+    parser.add_argument("--file", type=str, default=None, help="Input file for report (not required for all report types.")
 
     auth_group = parser.add_argument_group("Authentication Options")
     auth_group.add_argument("-u", "--user", type=str, required=True, help="User to authenticate with BitBucket")
@@ -23,7 +26,7 @@ def parse_args(args):
     report_info_group.add_argument("--report_key", type=str, required=True, help="BitBucket key for report.")
     report_info_group.add_argument("--report_title", type=str, required=True, help="Human readable title for report.")
     report_info_group.add_argument("--report_desc", type=str, required=True, help="Description for the report.")
-    report_info_group.add_argument("--report_type", choices=['terraform', 'custom'], required=True, help="Report type")
+    report_info_group.add_argument("--report_type", choices=['terraform', 'git-diff', 'custom'], required=True, help="Report type")
 
     bitbucket_group = parser.add_argument_group("BitBucket Configuration", description="Info to access the repository and PR")
     bitbucket_group.add_argument("--base_url", type=str, required=True, help="URL of the BitBucket server.")
@@ -51,6 +54,11 @@ def main():
 
     if args.report_type == "terraform":
         report = TerraformReport(auth, args.base_url, args.project_key, args.repo_slug, args.commit, args.report_key, args.report_title, args.report_desc)
+    elif args.report_type == "git-diff":
+        if args.file is None:
+            print("You must provide a file for the git-diff report type.")
+            exit(1)
+        report = GitDiffReport(auth, args.base_url, args.project_key, args.repo_slug, args.commit, args.report_key, args.report_title, args.report_desc, args.file)
     elif args.report_type == "custom":
         report = Report(auth, args.base_url, args.project_key, args.repo_slug, args.commit, args.report_key, args.report_title, args.report_desc, args.status, args.annotations)
 

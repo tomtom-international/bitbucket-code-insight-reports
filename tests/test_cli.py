@@ -22,7 +22,8 @@ def test_arg_parse():
             "--commit", "test_commit",
             "--report_type", "custom",
             "--status", "PASS",
-            "--annotations", "test_annotations"
+            "--annotations", "test_annotations",
+            "--file", "test_file.txt"
 
     ]
 
@@ -40,3 +41,4 @@ def test_arg_parse():
     assert parser.report_type == "custom"
     assert parser.status == "PASS"
     assert parser.annotations == "test_annotations"
+    assert parser.file == "test_file.txt"
