@@ -3,8 +3,8 @@ import re
 from .Report import Report
 
 class GitDiffReport(Report):
-    def __init__(self, auth, base_url, project_key, repo_slug, commit_id, key, title, description, file):
-        with open(file, mode="r") as diff_file:
+    def __init__(self, auth, base_url, project_key, repo_slug, commit_id, key, title, description, file_name):
+        with open(file_name, mode="r") as diff_file:
             annotations_string = diff_file.read()
 
         # If there weren't any changes, then its a pass
