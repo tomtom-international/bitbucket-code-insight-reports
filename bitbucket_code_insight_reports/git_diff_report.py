@@ -43,11 +43,6 @@ class GitDiffReport(Report):
                     line_number = entries[error_counter].split(' ')[1][1:].split(',')[0]
                     error = "{title}: Error found starting here.".format(title=self.title)
 
-                    annotations.append({
-                        "path": path,
-                        "line": line_number,
-                        "message": error,
-                        "severity": "HIGH"
-                    })
+                    annotations.append({"path": path, "line": line_number, "message": error, "severity": "HIGH"})
 
         return {'annotations': annotations}

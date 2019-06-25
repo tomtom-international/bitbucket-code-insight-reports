@@ -43,10 +43,5 @@ class TerraformReport(Report):
                     line_number = entries[error_counter].split(' ')[1][1:].split(',')[0]
                     error = "Error found in this block. Run `terraform fmt --diff -check` to see the issue (or run without `-check` to fix automatically)"
 
-                    annotations.append({
-                        "path": path,
-                        "line": line_number,
-                        "message": error,
-                        "severity": "HIGH"
-                    })
+                    annotations.append({"path": path, "line": line_number, "message": error, "severity": "HIGH"})
         return {'annotations': annotations}
