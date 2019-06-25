@@ -16,7 +16,7 @@ def parse_args(args):
 
     parser = argparse.ArgumentParser(description="Uploads information to code insights in BitBucket.")
 
-    parser.add_argument("--file", type=str, default=None, help="Input file for report (not required for all report types.")
+    parser.add_argument("--file", type=str, default=None, help="Input file for report (not required for all report types.)")
 
     auth_group = parser.add_argument_group("Authentication Options")
     auth_group.add_argument("-u", "--user", type=str, required=True, help="User to authenticate with BitBucket")
