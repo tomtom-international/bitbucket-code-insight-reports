@@ -1,8 +1,14 @@
+"""
+Module which generates a report based on the output of git diff
+"""
 import re
 
 from .report import Report
 
 class GitDiffReport(Report):
+    """
+    Class to generate a report based on the output of git diff
+    """
     def __init__(self, auth, base_url, project_key, repo_slug, commit_id, key, title, description, file_name):
         with open(file_name, mode="r") as diff_file:
             annotations_string = diff_file.read()

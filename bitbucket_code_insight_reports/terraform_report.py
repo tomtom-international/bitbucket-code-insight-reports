@@ -1,3 +1,6 @@
+"""
+Module for generating reports based on terraform
+"""
 import re
 
 from python_terraform import Terraform
