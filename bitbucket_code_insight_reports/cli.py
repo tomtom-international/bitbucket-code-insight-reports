@@ -5,9 +5,9 @@ import sys
 import argparse
 from getpass import getpass
 
-from bitbucket_code_insight_reports.Report import Report
-from bitbucket_code_insight_reports.TerraformReport import TerraformReport
-from bitbucket_code_insight_reports.GitDiffReport import GitDiffReport
+from bitbucket_code_insight_reports.report import Report
+from bitbucket_code_insight_reports.terraform_report import TerraformReport
+from bitbucket_code_insight_reports.git_diff_report import GitDiffReport
 
 
 def parse_args(args):

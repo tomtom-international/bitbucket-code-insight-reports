@@ -2,7 +2,7 @@ import re
 
 from python_terraform import Terraform
 
-from .Report import Report
+from .report import Report
 
 class TerraformReport(Report):
     """

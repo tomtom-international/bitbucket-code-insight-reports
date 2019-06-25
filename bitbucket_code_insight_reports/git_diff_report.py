@@ -1,6 +1,6 @@
 import re
 
-from .Report import Report
+from .report import Report
 
 class GitDiffReport(Report):
     def __init__(self, auth, base_url, project_key, repo_slug, commit_id, key, title, description, file_name):

@@ -2,7 +2,7 @@ from unittest.mock import patch, mock_open
 
 import pytest
 
-from bitbucket_code_insight_reports.GitDiffReport import GitDiffReport
+from bitbucket_code_insight_reports.git_diff_report import GitDiffReport
 
 @pytest.fixture
 def gen_get_diff_annotation():
