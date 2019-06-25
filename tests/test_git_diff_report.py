@@ -42,8 +42,10 @@ def test_init(gen_get_diff_annotation):
     """
     test_annotations, diff_output = gen_get_diff_annotation([("test/some/class.c", 5), ("test/some/other/class.c", 146)], "Git Report")
 
-    with patch("builtins.open", mock_open(read_data=diff_output)) as mock_file:
-        test_report = GitDiffReport("test", "test.coam", "test", "test", "test", "test", "Git Report", "test", "test.txt")
+    with patch("os.stat") as mock_stat:
+        mock_stat.return_value.st_size = 32
+        with patch("builtins.open", mock_open(read_data=diff_output)) as mock_file:
+            test_report = GitDiffReport("test", "test.coam", "test", "test", "test", "test", "Git Report", "test", "test.txt")
 
     assert test_report.result == "FAIL"
     assert test_report.annotations == test_annotations

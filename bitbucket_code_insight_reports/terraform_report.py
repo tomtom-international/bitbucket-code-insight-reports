@@ -11,21 +11,26 @@ class TerraformReport(Report):
     """
     Executes `terraform fmt` and converts the results into a report for BitBucket Server Code Insights
     """
-    def __init__(self, auth, base_url, project_key, repo_slug, commit_id, key, title, description):
-        terraform = Terraform()
-        return_code, annotations, error = terraform.fmt(capture_output=True, check=True, diff=True, recursive=True) # pylint: disable=unused-variable
+    def __init__(self, auth, base_url, project_key, repo_slug, commit_id, key, title, description, file_name=None): # pylint: disable=too-many-locals
+        annotations_string = ""
+        if file_name is None:
+            terraform = Terraform()
+            return_code, annotations_string, error = terraform.fmt(capture_output=True, check=True, diff=True, recursive=True) # pylint: disable=unused-variable
 
         if return_code == 0:
             result = "PASS"
         else:
             result = "FAIL"
 
-        super().__init__(auth, base_url, project_key, repo_slug, commit_id, key, title, description, result, annotations, return_code)
+        super().__init__(auth, base_url, project_key, repo_slug, commit_id, key, title, description, result, annotations_string=annotations_string,
+                         return_code=return_code)
 
     @staticmethod
     def _process_annotations(annotations_string):
         """
         Converts the output of `terraform fmt --diff -check` to an annotations dictionary.
+        Args:
+            annotations_string: terraform output to parse
         Returns:
             Dictionary with the annotations.
         """

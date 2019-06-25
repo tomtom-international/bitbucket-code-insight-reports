@@ -9,7 +9,8 @@ class Report:
     """
     Generates a basic report for BitBucket Code Insight
     """
-    def __init__(self, auth, base_url, project_key, repo_slug, commit_id, key, title, description, result, annotations, return_code=None):
+    def __init__(self, auth, base_url, project_key, repo_slug, commit_id, key, title, description, result, annotations_string="", return_code=None,
+                 file_name=None):
         self.auth = auth
         self.title = title
         self.description = description
@@ -23,8 +24,12 @@ class Report:
         else:
             self.return_code = return_code
 
+        if file_name is not None:
+            with open(file_name, mode="r") as report_file:
+                annotations_string = report_file.read()
+
         self.url = self._build_base_report_url(base_url, project_key, repo_slug, commit_id, key)
-        self.annotations = self._process_annotations(annotations)
+        self.annotations = self._process_annotations(annotations_string)
 
     @staticmethod
     def _build_base_report_url(base_url, project_key, repo_slug, commit_id, key):
@@ -52,6 +57,8 @@ class Report:
     def _process_annotations(annotations_string):
         """
         Converts the annotations string provided to a dictionary
+        Args:
+            annotations_string: annotations to load
         Returns:
             Dictionary with the annotations.
         """

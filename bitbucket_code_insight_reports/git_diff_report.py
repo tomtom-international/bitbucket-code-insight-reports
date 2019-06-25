@@ -2,6 +2,7 @@
 Module which generates a report based on the output of git diff
 """
 import re
+import os
 
 from .report import Report
 
@@ -10,22 +11,22 @@ class GitDiffReport(Report):
     Class to generate a report based on the output of git diff
     """
     def __init__(self, auth, base_url, project_key, repo_slug, commit_id, key, title, description, file_name):
-        with open(file_name, mode="r") as diff_file:
-            annotations_string = diff_file.read()
-
         # If there weren't any changes, then its a pass
-        if annotations_string == "":
+        if os.stat(file_name).st_size == 0:
             result = "PASS"
             return_code = 0
         else:
             result = "FAIL"
             return_code = 1
 
-        super().__init__(auth, base_url, project_key, repo_slug, commit_id, key, title, description, result, annotations_string, return_code)
+        super().__init__(auth, base_url, project_key, repo_slug, commit_id, key, title, description, result, return_code=return_code,
+                         file_name=file_name)
 
     def _process_annotations(self, annotations_string):
         """
         Converts `git diff` output to an annotations dictionary.
+        Args:
+            annotations_string: git diff output to parse
         Returns:
             Dictionary with the annotations.
         """
