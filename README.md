@@ -19,16 +19,18 @@ Designed to be extensible, so it can be hooked to anything that outputs file pat
 ## Features
 
 * Report failing lines from the output of `terraform fmt --diff -check -recursive`
+* Report failing lines from the output of `git diff` (must be provided with an input file)
 
 ## Usage
 
 ```
-usage: bitbucket-code-insight-reports [-h] -u USER [-p PASSWORD] --report_key
-                                      REPORT_KEY --report_title REPORT_TITLE
-                                      --report_desc REPORT_DESC --report_type
-                                      {terraform,custom} --base_url BASE_URL
-                                      --project_key PROJECT_KEY --repo_slug
-                                      REPO_SLUG --commit COMMIT
+usage: bitbucket-code-insight-reports [-h] [--file FILE] -u USER [-p PASSWORD]
+                                      --report_key REPORT_KEY --report_title
+                                      REPORT_TITLE --report_desc REPORT_DESC
+                                      --report_type
+                                      {terraform,git-diff,custom} --base_url
+                                      BASE_URL --project_key PROJECT_KEY
+                                      --repo_slug REPO_SLUG --commit COMMIT
                                       [--status {PASS,FAIL}]
                                       [--annotations ANNOTATIONS]
 
@@ -36,6 +38,8 @@ Uploads information to code insights in BitBucket.
 
 optional arguments:
   -h, --help            show this help message and exit
+  --file FILE           Input file for report (not required for all report
+                        types.
 
 Authentication Options:
   -u USER, --user USER  User to authenticate with BitBucket
@@ -51,7 +55,7 @@ Report Options:
                         Human readable title for report.
   --report_desc REPORT_DESC
                         Description for the report.
-  --report_type {terraform,custom}
+  --report_type {terraform,git-diff,custom}
                         Report type
 
 BitBucket Configuration:
