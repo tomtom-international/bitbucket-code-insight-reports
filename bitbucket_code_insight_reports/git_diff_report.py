@@ -6,10 +6,12 @@ import os
 
 from .report import Report
 
+
 class GitDiffReport(Report):
     """
     Class to generate a report based on the output of git diff
     """
+
     def __init__(self, auth, base_url, project_key, repo_slug, commit_id, key, title, description, file_name):
         # If there weren't any changes, then its a pass
         if os.stat(file_name).st_size == 0:
@@ -19,8 +21,19 @@ class GitDiffReport(Report):
             result = "FAIL"
             return_code = 1
 
-        super().__init__(auth, base_url, project_key, repo_slug, commit_id, key, title, description, result, return_code=return_code,
-                         file_name=file_name)
+        super().__init__(
+            auth,
+            base_url,
+            project_key,
+            repo_slug,
+            commit_id,
+            key,
+            title,
+            description,
+            result,
+            return_code=return_code,
+            file_name=file_name,
+        )
 
     def _process_annotations(self, annotations_string):
         """
@@ -41,9 +54,9 @@ class GitDiffReport(Report):
                 entries = re.compile(r"(@{2}[\+\-\,\d\ ]*@{2})").split(split_output[file_errors_counter + 2])
 
                 for error_counter in range(1, len(entries), 2):
-                    line_number = entries[error_counter].split(' ')[1][1:].split(',')[0]
+                    line_number = entries[error_counter].split(" ")[1][1:].split(",")[0]
                     error = "{title}: Error found starting here.".format(title=self.title)
 
                     annotations.append({"path": path, "line": line_number, "message": error, "severity": "HIGH"})
 
-        return {'annotations': annotations}
+        return {"annotations": annotations}

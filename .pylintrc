@@ -134,7 +134,8 @@ disable=print-statement,
         deprecated-sys-function,
         exception-escape,
         comprehension-escape,
-        too-many-arguments
+        too-many-arguments,
+        bad-continuation # for Black formatter
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option
@@ -195,10 +196,10 @@ max-spelling-suggestions=4
 
 # Spelling dictionary name. Available dictionaries: none. To make it working
 # install python-enchant package.
-spelling-dict=
+spelling-dict=en_US
 
 # List of comma separated words that should not be checked.
-spelling-ignore-words=
+spelling-ignore-words=args, bool, yaml, py, dicts, api, commandline, pragma, terraform, fmt, bitbucket, url
 
 # A path to a file that contains private dictionary; one word per line.
 spelling-private-dict-file=
@@ -305,7 +306,7 @@ ignore-docstrings=yes
 ignore-imports=no
 
 # Minimum lines number of a similarity.
-min-similarity-lines=4
+min-similarity-lines=10
 
 
 [LOGGING]

@@ -5,12 +5,27 @@ import json
 
 import requests
 
+
 class Report:
     """
     Generates a basic report for BitBucket Code Insight
     """
-    def __init__(self, auth, base_url, project_key, repo_slug, commit_id, key, title, description, result, annotations_string="", return_code=None,
-                 file_name=None):
+
+    def __init__(
+        self,
+        auth,
+        base_url,
+        project_key,
+        repo_slug,
+        commit_id,
+        key,
+        title,
+        description,
+        result,
+        annotations_string="",
+        return_code=None,
+        file_name=None,
+    ):
         self.auth = auth
         self.title = title
         self.description = description
@@ -44,7 +59,17 @@ class Report:
         Returns:
             Url for the report
         """
-        return base_url + "/rest/insights/1.0/projects/" + project_key + "/repos/" + repo_slug + "/commits/" + commit_id + "/reports/" + key
+        return (
+            base_url
+            + "/rest/insights/1.0/projects/"
+            + project_key
+            + "/repos/"
+            + repo_slug
+            + "/commits/"
+            + commit_id
+            + "/reports/"
+            + key
+        )
 
     def post_base_report(self):
         """

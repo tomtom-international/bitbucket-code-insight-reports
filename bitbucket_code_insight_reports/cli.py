@@ -16,7 +16,9 @@ def parse_args(args):
 
     parser = argparse.ArgumentParser(description="Uploads information to code insights in BitBucket.")
 
-    parser.add_argument("--file", type=str, default=None, help="Input file for report (not required for all report types.)")
+    parser.add_argument(
+        "--file", type=str, default=None, help="Input file for report (not required for all report types.)"
+    )
 
     auth_group = parser.add_argument_group("Authentication Options")
     auth_group.add_argument("-u", "--user", type=str, required=True, help="User to authenticate with BitBucket")
@@ -26,20 +28,36 @@ def parse_args(args):
     report_info_group.add_argument("--report_key", type=str, required=True, help="BitBucket key for report.")
     report_info_group.add_argument("--report_title", type=str, required=True, help="Human readable title for report.")
     report_info_group.add_argument("--report_desc", type=str, required=True, help="Description for the report.")
-    report_info_group.add_argument("--report_type", choices=['terraform', 'git-diff', 'custom'], required=True, help="Report type")
+    report_info_group.add_argument(
+        "--report_type", choices=["terraform", "git-diff", "custom"], required=True, help="Report type"
+    )
 
-    bitbucket_group = parser.add_argument_group("BitBucket Configuration", description="Info to access the repository and PR")
+    bitbucket_group = parser.add_argument_group(
+        "BitBucket Configuration", description="Info to access the repository and PR"
+    )
     bitbucket_group.add_argument("--base_url", type=str, required=True, help="URL of the BitBucket server.")
     bitbucket_group.add_argument("--project_key", type=str, required=True, help="BitBucket key for the project.")
     bitbucket_group.add_argument("--repo_slug", type=str, required=True, help="Name of repo in BitBucket.")
-    bitbucket_group.add_argument("--commit", type=str, required=True, help="Commit hash for the commit to upload the report to.")
+    bitbucket_group.add_argument(
+        "--commit", type=str, required=True, help="Commit hash for the commit to upload the report to."
+    )
 
-    custom_report_group = parser.add_argument_group("Custom Report Options", description="Arguments only for use with the custom report type.")
-    custom_report_group.add_argument("--status", type=str, required=False, choices=["PASS", "FAIL"], help="Status of the report, PASS/FAIL.")
-    custom_report_group.add_argument("--annotations", type=str, default=None, help="""Annotations in a JSON string as shown in
-        https://docs.atlassian.com/bitbucket-server/rest/5.16.0/bitbucket-code-insights-rest.html#idm361726402736""")
+    custom_report_group = parser.add_argument_group(
+        "Custom Report Options", description="Arguments only for use with the custom report type."
+    )
+    custom_report_group.add_argument(
+        "--status", type=str, required=False, choices=["PASS", "FAIL"], help="Status of the report, PASS/FAIL."
+    )
+    custom_report_group.add_argument(
+        "--annotations",
+        type=str,
+        default=None,
+        help="""Annotations in a JSON string as shown in
+        https://docs.atlassian.com/bitbucket-server/rest/5.16.0/bitbucket-code-insights-rest.html#idm361726402736""",
+    )
 
     return parser.parse_args(args)
+
 
 def main():
     """Console script for bitbucket_code_insight_reports."""
@@ -53,14 +71,44 @@ def main():
     auth = (args.user, password)
 
     if args.report_type == "terraform":
-        report = TerraformReport(auth, args.base_url, args.project_key, args.repo_slug, args.commit, args.report_key, args.report_title, args.report_desc)
+        report = TerraformReport(
+            auth,
+            args.base_url,
+            args.project_key,
+            args.repo_slug,
+            args.commit,
+            args.report_key,
+            args.report_title,
+            args.report_desc,
+        )
     elif args.report_type == "git-diff":
         if args.file is None:
             print("You must provide a file for the git-diff report type.")
             exit(1)
-        report = GitDiffReport(auth, args.base_url, args.project_key, args.repo_slug, args.commit, args.report_key, args.report_title, args.report_desc, args.file)
+        report = GitDiffReport(
+            auth,
+            args.base_url,
+            args.project_key,
+            args.repo_slug,
+            args.commit,
+            args.report_key,
+            args.report_title,
+            args.report_desc,
+            args.file,
+        )
     elif args.report_type == "custom":
-        report = Report(auth, args.base_url, args.project_key, args.repo_slug, args.commit, args.report_key, args.report_title, args.report_desc, args.status, args.annotations)
+        report = Report(
+            auth,
+            args.base_url,
+            args.project_key,
+            args.repo_slug,
+            args.commit,
+            args.report_key,
+            args.report_title,
+            args.report_desc,
+            args.status,
+            args.annotations,
+        )
 
     report.post_base_report()
     report.post_annotations()

@@ -8,23 +8,37 @@ import pytest
 
 from bitbucket_code_insight_reports import cli
 
+
 def test_arg_parse():
     """Test the parsing from the CLI."""
 
-    args = ["--user", "test_user",
-            "--password", "test_password",
-            "--report_key", "test_report_key",
-            "--report_title", "test_report_title",
-            "--report_desc", "test_report_desc",
-            "--base_url", "test_url",
-            "--project_key", "test_project_key",
-            "--repo_slug", "test_repo_slug",
-            "--commit", "test_commit",
-            "--report_type", "custom",
-            "--status", "PASS",
-            "--annotations", "test_annotations",
-            "--file", "test_file.txt"
-
+    args = [
+        "--user",
+        "test_user",
+        "--password",
+        "test_password",
+        "--report_key",
+        "test_report_key",
+        "--report_title",
+        "test_report_title",
+        "--report_desc",
+        "test_report_desc",
+        "--base_url",
+        "test_url",
+        "--project_key",
+        "test_project_key",
+        "--repo_slug",
+        "test_repo_slug",
+        "--commit",
+        "test_commit",
+        "--report_type",
+        "custom",
+        "--status",
+        "PASS",
+        "--annotations",
+        "test_annotations",
+        "--file",
+        "test_file.txt",
     ]
 
     parser = cli.parse_args(args)
