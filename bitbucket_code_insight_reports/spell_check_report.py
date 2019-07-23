@@ -32,9 +32,9 @@ class SpellCheckReport(Report):
         with redirect_stderr(results):
             return_code = spell_check(files_to_check, report_only=True, override_dictionary=dictionary)
 
-        annotations_string = results.getvalue()
+        annotations_string = results.getvalue().strip()
 
-        if return_code == 0:
+        if return_code:
             result = "PASS"
         else:
             result = "FAIL"
@@ -50,7 +50,6 @@ class SpellCheckReport(Report):
             description,
             result,
             annotations_string=annotations_string,
-            return_code=return_code,
         )
 
     @staticmethod
@@ -64,7 +63,7 @@ class SpellCheckReport(Report):
         """
         annotations = []
 
-        if annotations_string:
+        if annotations_string != "":
             for issue in annotations_string.split("\n"):
                 issue = issue.split(":")
                 annotations.append(

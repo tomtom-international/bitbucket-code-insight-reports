@@ -49,7 +49,7 @@ def test_init(word, mock_spellcheck, mock_stringio, gen_scspell_annotation):
     Tests the init function runs terraform fmt and processes the results
     """
     test_annotations, scspell_output = gen_scspell_annotation([("test/file.cpp", 5, word), ("file3.cpp", 18, word)])
-    mock_spellcheck.return_vaue = 1
+    mock_spellcheck.return_value = False
     mock_stringio.return_value.getvalue.return_value = scspell_output
     test_report = SpellCheckReport(
         "test",

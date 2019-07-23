@@ -129,7 +129,7 @@ def main():
             args.status,
             args.annotations,
         )
-    elif args.report_type == "spell_check":
+    elif args.report_type == "spell-check":
         if args.file_list:
             files_list = args.file_list
         elif args.file_list_from_file:
