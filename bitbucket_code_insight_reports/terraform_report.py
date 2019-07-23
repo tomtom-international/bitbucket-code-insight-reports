@@ -23,7 +23,7 @@ class TerraformReport(Report):
             result = "FAIL"
 
         super().__init__(auth, base_url, project_key, repo_slug, commit_id, key, title, description, result, annotations_string=annotations_string,
-                         return_code=return_code)
+                         return_code=return_code, file_name=file_name)
 
     @staticmethod
     def _process_annotations(annotations_string):
