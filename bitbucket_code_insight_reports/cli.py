@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+# pylint: disable=too-many-function-args
+
 """Console script for bitbucket_code_insight_reports."""
 import sys
 import argparse
@@ -8,6 +10,7 @@ from getpass import getpass
 from bitbucket_code_insight_reports.report import Report
 from bitbucket_code_insight_reports.terraform_report import TerraformReport
 from bitbucket_code_insight_reports.git_diff_report import GitDiffReport
+from bitbucket_code_insight_reports.spell_check_report import SpellCheckReport
 
 
 def parse_args(args):
@@ -29,7 +32,7 @@ def parse_args(args):
     report_info_group.add_argument("--report_title", type=str, required=True, help="Human readable title for report.")
     report_info_group.add_argument("--report_desc", type=str, required=True, help="Description for the report.")
     report_info_group.add_argument(
-        "--report_type", choices=["terraform", "git-diff", "custom"], required=True, help="Report type"
+        "--report_type", choices=["terraform", "git-diff", "spell-check", "custom"], required=True, help="Report type"
     )
 
     bitbucket_group = parser.add_argument_group(
@@ -54,6 +57,23 @@ def parse_args(args):
         default=None,
         help="""Annotations in a JSON string as shown in
         https://docs.atlassian.com/bitbucket-server/rest/5.16.0/bitbucket-code-insights-rest.html#idm361726402736""",
+    )
+
+    spellcheck_report_group = parser.add_argument_group(
+        "Spellcheck Report Options", description="Arguments only for use with spellcheck report type."
+    )
+    spellcheck_report_group.add_argument(
+        "--dict", type=str, required=False, default=None, help="Path to dictionary to include when spell checking"
+    )
+    spellcheck_filelist_group = spellcheck_report_group.add_mutually_exclusive_group()
+    spellcheck_filelist_group.add_argument(
+        "--file_list", nargs="+", type=str, default=None, help="List of files to check."
+    )
+    spellcheck_filelist_group.add_argument(
+        "--file_list_from_file",
+        type=argparse.FileType("r"),
+        default=None,
+        help="File containing a newline separated list of files to check.",
     )
 
     return parser.parse_args(args)
@@ -108,6 +128,26 @@ def main():
             args.report_desc,
             args.status,
             args.annotations,
+        )
+    elif args.report_type == "spell_check":
+        if args.file_list:
+            files_list = args.file_list
+        elif args.file_list_from_file:
+            files_list = args.file_list_from_file.readLines()
+        else:
+            print("You must provide a file list or a file with the file list")
+            exit(1)
+        report = SpellCheckReport(
+            auth,
+            args.base_url,
+            args.project_key,
+            args.repo_slug,
+            args.commit,
+            args.report_key,
+            args.report_title,
+            args.report_desc,
+            files_to_check=files_list,
+            dictionary=args.dict,
         )
 
     report.post_base_report()

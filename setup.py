@@ -19,11 +19,11 @@ with open("README.md") as readme_file:
 with open("CHANGELOG.md") as changelog_file:
     changelog = changelog_file.read()
 
-requirements = ["python-terraform==0.10.0", "requests==2.22.0"]
+requirements = ["python-terraform==0.10.0", "requests==2.22.0", "scspell3k==2.2"]
 
-setup_requirements = ["pytest-runner",]
+setup_requirements = ["pytest-runner"]
 
-test_requirements = ["pytest", "pytest-cov", "coverage", "hypothesis",]
+test_requirements = ["pytest", "pytest-cov", "coverage", "hypothesis"]
 
 setup(
     author=bitbucket_code_insight_reports.__author__,
@@ -39,11 +39,7 @@ setup(
         "Programming Language :: Python :: 3.7",
     ],
     description="Upload reports to BitBucket server for use with the Code Insights feature",
-    entry_points={
-        "console_scripts": [
-            "bitbucket-code-insight-reports=bitbucket_code_insight_reports.cli:main",
-        ],
-    },
+    entry_points={"console_scripts": ["bitbucket-code-insight-reports=bitbucket_code_insight_reports.cli:main"]},
     install_requires=requirements,
     license="Apache Software License 2.0",
     long_description=readme + "\n\n" + changelog,
