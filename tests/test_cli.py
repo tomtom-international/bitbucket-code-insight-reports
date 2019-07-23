@@ -39,6 +39,11 @@ def test_arg_parse():
         "test_annotations",
         "--file",
         "test_file.txt",
+        "--file_list",
+        "test_file_1",
+        "test_file_2",
+        "--dict",
+        "/some/path/to/dictionary",
     ]
 
     parser = cli.parse_args(args)
@@ -56,3 +61,5 @@ def test_arg_parse():
     assert parser.status == "PASS"
     assert parser.annotations == "test_annotations"
     assert parser.file == "test_file.txt"
+    assert parser.file_list == ["test_file_1", "test_file_2"]
+    assert parser.dict == "/some/path/to/dictionary"
