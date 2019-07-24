@@ -61,3 +61,10 @@ def test_init(
     assert title == test_report.title
     assert description == test_report.description
     assert result == test_report.result
+
+    report_info = "URL: {url}".format(url=test_report_url)
+    report_info += "Title: {title}".format(title=title)
+    report_info += "Description: {desc}".format(desc=description)
+    report_info += "Result: {result}".format(result=result)
+    report_info += "Annotations: {annot}".format(annot=json.dumps(test_annotation, indent=4))
+    assert report_info == test_report.output_info()

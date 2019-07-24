@@ -44,6 +44,7 @@ def test_arg_parse():
         "test_file_2",
         "--dict",
         "/some/path/to/dictionary",
+        "--silent",
     ]
 
     parser = cli.parse_args(args)
@@ -63,3 +64,4 @@ def test_arg_parse():
     assert parser.file == "test_file.txt"
     assert parser.file_list == ["test_file_1", "test_file_2"]
     assert parser.dict == "/some/path/to/dictionary"
+    assert parser.silent == True

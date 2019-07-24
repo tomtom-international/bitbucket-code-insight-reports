@@ -95,3 +95,14 @@ class Report:
         """
         annotations_url = self.url + "/annotations"
         requests.post(annotations_url, json=self.annotations, auth=self.auth)
+
+    def output_info(self):
+        """
+        Returns string with base report and annotation information
+        """
+        report_info = "URL: {url}".format(url=self.url)
+        report_info += "Title: {title}".format(title=self.title)
+        report_info += "Description: {desc}".format(desc=self.description)
+        report_info += "Result: {result}".format(result=self.result)
+        report_info += "Annotations: {annot}".format(annot=json.dumps(self.annotations, indent=4))
+        return report_info
