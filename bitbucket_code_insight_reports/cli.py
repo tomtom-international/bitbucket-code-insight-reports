@@ -22,6 +22,9 @@ def parse_args(args):
     parser.add_argument(
         "--file", type=str, default=None, help="Input file for report (not required for all report types.)"
     )
+    parser.add_argument(
+        "--silent", action="store_true", default=False, help="Don't output what has been sent to BitBucket."
+    )
 
     auth_group = parser.add_argument_group("Authentication Options")
     auth_group.add_argument("-u", "--user", type=str, required=True, help="User to authenticate with BitBucket")
@@ -152,6 +155,10 @@ def main():
 
     report.post_base_report()
     report.post_annotations()
+
+    if not args.silent:
+        print(report.output_info())
+
     return report.return_code
 
 
