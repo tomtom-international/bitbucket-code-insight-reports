@@ -66,7 +66,12 @@ def parse_args(args):
         "Spellcheck Report Options", description="Arguments only for use with spellcheck report type."
     )
     spellcheck_report_group.add_argument(
-        "--dict", type=str, required=False, default=None, help="Path to dictionary to include when spell checking"
+        "--dict",
+        type=str,
+        nargs="+",
+        required=False,
+        default=[],
+        help="Path to dictionary to include when spell checking",
     )
     spellcheck_filelist_group = spellcheck_report_group.add_mutually_exclusive_group()
     spellcheck_filelist_group.add_argument(

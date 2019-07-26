@@ -30,7 +30,7 @@ class SpellCheckReport(Report):
         results = StringIO()
 
         with redirect_stderr(results):
-            return_code = spell_check(files_to_check, report_only=True, override_dictionary=dictionary)
+            return_code = spell_check(files_to_check, report_only=True, base_dicts=dictionary)
 
         annotations_string = results.getvalue().strip()
 
