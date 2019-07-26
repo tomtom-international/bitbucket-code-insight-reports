@@ -136,7 +136,7 @@ def main():
         if args.file_list:
             files_list = args.file_list
         elif args.file_list_from_file:
-            files_list = args.file_list_from_file.read().split("\n")
+            files_list = args.file_list_from_file.read().strip().split("\n")
         else:
             print("You must provide a file list or a file with the file list")
             exit(1)
