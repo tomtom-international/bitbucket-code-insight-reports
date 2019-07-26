@@ -25,12 +25,15 @@ class SpellCheckReport(Report):
         title,
         description,
         files_to_check,
-        dictionary=None,
+        dictionaries=None,
     ):  # pylint: disable=too-many-locals
         results = StringIO()
 
+        if dictionaries is None:
+            dictionaries = []
+
         with redirect_stderr(results):
-            return_code = spell_check(files_to_check, report_only=True, base_dicts=dictionary)
+            return_code = spell_check(files_to_check, report_only=True, base_dicts=dictionaries)
 
         annotations_string = results.getvalue().strip()
 

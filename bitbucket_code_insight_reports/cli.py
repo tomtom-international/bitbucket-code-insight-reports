@@ -71,7 +71,7 @@ def parse_args(args):
         nargs="+",
         required=False,
         default=[],
-        help="Path to dictionary to include when spell checking",
+        help="Path to dictionaries to include when spell checking",
     )
     spellcheck_filelist_group = spellcheck_report_group.add_mutually_exclusive_group()
     spellcheck_filelist_group.add_argument(
@@ -155,7 +155,7 @@ def main():
             args.report_title,
             args.report_desc,
             files_to_check=files_list,
-            dictionary=args.dict,
+            dictionaries=args.dict,
         )
 
     report.post_base_report()

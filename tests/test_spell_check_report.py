@@ -65,7 +65,7 @@ def test_init(word, mock_spellcheck, mock_stringio, gen_scspell_annotation):
         files_to_check=["test/file.cpp", "file3.cpp"],
     )
 
-    assert mock_spellcheck.called_with(["test/file.cpp", "file3.cpp"], report_only=True, override_dictionary=None)
+    assert mock_spellcheck.called_with(["test/file.cpp", "file3.cpp"], report_only=True, base_dicts=None)
 
     assert test_report.result == "FAIL"
     assert test_report.annotations == test_annotations
