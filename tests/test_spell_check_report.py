@@ -48,7 +48,7 @@ def gen_scspell_annotation():
 @example(word="silly:example:to:check")
 def test_init(word, mock_spellcheck, mock_stringio, gen_scspell_annotation):
     """
-    Tests the init function runs terraform fmt and processes the results
+    Tests the init function runs scspell and processes the results
     """
     test_annotations, scspell_output = gen_scspell_annotation([("test/file.cpp", 5, word), ("file3.cpp", 18, word)])
     mock_spellcheck.return_value = False

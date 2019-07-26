@@ -69,7 +69,7 @@ class SpellCheckReport(Report):
 
                 # Handle cases where the word has a colon
                 if len(issue) > 3:
-                    "".join(issue[2:])
+                    issue[2] = ":".join(issue[2:])
 
                 annotations.append(
                     {"path": issue[0].strip(), "line": issue[1].strip(), "message": issue[2].strip(), "severity": "LOW"}
