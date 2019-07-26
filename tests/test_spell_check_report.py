@@ -1,7 +1,7 @@
 import pytest
 
 from unittest.mock import patch
-from hypothesis import strategies as strat, given
+from hypothesis import strategies as strat, given, example
 
 from bitbucket_code_insight_reports.spell_check_report import SpellCheckReport
 
@@ -44,6 +44,8 @@ def gen_scspell_annotation():
 @patch("bitbucket_code_insight_reports.spell_check_report.StringIO")
 @patch("bitbucket_code_insight_reports.spell_check_report.spell_check")
 @given(word=strat.text(min_size=1, alphabet=strat.characters(blacklist_categories=("C"))))
+@example(word=":")
+@example(word="silly:example:to:check")
 def test_init(word, mock_spellcheck, mock_stringio, gen_scspell_annotation):
     """
     Tests the init function runs terraform fmt and processes the results
