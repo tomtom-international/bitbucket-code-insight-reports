@@ -63,5 +63,5 @@ def test_arg_parse():
     assert parser.annotations == "test_annotations"
     assert parser.file == "test_file.txt"
     assert parser.file_list == ["test_file_1", "test_file_2"]
-    assert parser.dict == "/some/path/to/dictionary"
+    assert parser.dict == ["/some/path/to/dictionary"]
     assert parser.silent == True
