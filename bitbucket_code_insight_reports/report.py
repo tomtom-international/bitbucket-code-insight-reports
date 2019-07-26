@@ -100,9 +100,9 @@ class Report:
         """
         Returns string with base report and annotation information
         """
-        report_info = "URL: {url}".format(url=self.url)
-        report_info += "Title: {title}".format(title=self.title)
-        report_info += "Description: {desc}".format(desc=self.description)
-        report_info += "Result: {result}".format(result=self.result)
-        report_info += "Annotations: {annot}".format(annot=json.dumps(self.annotations, indent=4))
+        report_info = "\nURL: {url}\n".format(url=self.url)
+        report_info += "Title: {title}\n".format(title=self.title)
+        report_info += "Description: {desc}\n".format(desc=self.description)
+        report_info += "Result: {result}\n".format(result=self.result)
+        report_info += "Annotations: {annot}\n".format(annot=json.dumps(self.annotations, indent=4))
         return report_info
