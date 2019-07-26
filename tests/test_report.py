@@ -66,5 +66,5 @@ def test_init(
     report_info += "Title: {title}\n".format(title=title)
     report_info += "Description: {desc}\n".format(desc=description)
     report_info += "Result: {result}\n".format(result=result)
-    report_info += "Annotations: {annot}\n".format(annot=json.dumps(test_annotation, indent=4))
+    report_info += "Annotations: {annot}\n".format(annot=json.dumps(test_annotation, indent=4, sort_keys=True))
     assert report_info == test_report.output_info()

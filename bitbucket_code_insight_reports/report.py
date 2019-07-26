@@ -104,5 +104,5 @@ class Report:
         report_info += "Title: {title}\n".format(title=self.title)
         report_info += "Description: {desc}\n".format(desc=self.description)
         report_info += "Result: {result}\n".format(result=self.result)
-        report_info += "Annotations: {annot}\n".format(annot=json.dumps(self.annotations, indent=4))
+        report_info += "Annotations: {annot}\n".format(annot=json.dumps(self.annotations, indent=4, sort_keys=True))
         return report_info
