@@ -199,7 +199,7 @@ max-spelling-suggestions=4
 spelling-dict=en_US
 
 # List of comma separated words that should not be checked.
-spelling-ignore-words=args, bool, yaml, py, dicts, api, commandline, pragma, terraform, fmt, bitbucket, url, scspell
+spelling-ignore-words=args, bool, yaml, py, dicts, api, commandline, pragma, terraform, fmt, bitbucket, url, scspell, auth, tuple
 
 # A path to a file that contains private dictionary; one word per line.
 spelling-private-dict-file=

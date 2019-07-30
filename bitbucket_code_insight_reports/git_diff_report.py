@@ -12,7 +12,9 @@ class GitDiffReport(Report):
     Class to generate a report based on the output of git diff
     """
 
-    def __init__(self, auth, base_url, project_key, repo_slug, commit_id, key, title, description, file_name):
+    def __init__(
+        self, auth, base_url, project_key, repo_slug, commit_id, key, title, description, file_name, force_pass=False
+    ):
         # If there weren't any changes, then its a pass
         if os.stat(file_name).st_size == 0:
             result = "PASS"
@@ -33,6 +35,7 @@ class GitDiffReport(Report):
             result,
             return_code=return_code,
             file_name=file_name,
+            force_pass=False,
         )
 
     def _process_annotations(self, annotations_string):

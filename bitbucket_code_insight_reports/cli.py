@@ -25,6 +25,12 @@ def parse_args(args):
     parser.add_argument(
         "--silent", action="store_true", default=False, help="Don't output what has been sent to BitBucket."
     )
+    parser.add_argument(
+        "--force_pass",
+        action="store_true",
+        default=False,
+        help="Force the result to pass and the function to return true (for non-blocking CI steps",
+    )
 
     auth_group = parser.add_argument_group("Authentication Options")
     auth_group.add_argument("-u", "--user", type=str, required=True, help="User to authenticate with BitBucket")
@@ -108,6 +114,7 @@ def main():
             args.report_key,
             args.report_title,
             args.report_desc,
+            force_pass=args.force_pass,
         )
     elif args.report_type == "git-diff":
         if args.file is None:
@@ -123,6 +130,7 @@ def main():
             args.report_title,
             args.report_desc,
             args.file,
+            force_pass=args.force_pass,
         )
     elif args.report_type == "custom":
         report = Report(
@@ -136,6 +144,7 @@ def main():
             args.report_desc,
             args.status,
             args.annotations,
+            force_pass=args.force_pass,
         )
     elif args.report_type == "spell-check":
         if args.file_list:
@@ -154,6 +163,7 @@ def main():
             args.report_key,
             args.report_title,
             args.report_desc,
+            force_pass=args.force_pass,
             files_to_check=files_list,
             dictionaries=args.dict,
         )

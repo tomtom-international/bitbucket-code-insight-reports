@@ -14,7 +14,17 @@ class TerraformReport(Report):
     """
 
     def __init__(
-        self, auth, base_url, project_key, repo_slug, commit_id, key, title, description, file_name=None
+        self,
+        auth,
+        base_url,
+        project_key,
+        repo_slug,
+        commit_id,
+        key,
+        title,
+        description,
+        file_name=None,
+        force_pass=False,
     ):  # pylint: disable=too-many-locals
         annotations_string = ""
         if file_name is None:
@@ -40,6 +50,7 @@ class TerraformReport(Report):
             result,
             annotations_string=annotations_string,
             return_code=return_code,
+            force_pass=force_pass,
         )
 
     @staticmethod
