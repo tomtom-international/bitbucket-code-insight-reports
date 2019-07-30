@@ -26,6 +26,7 @@ class SpellCheckReport(Report):
         description,
         files_to_check,
         dictionaries=None,
+        force_pass=False,
     ):  # pylint: disable=too-many-locals
         results = StringIO()
 
@@ -53,6 +54,7 @@ class SpellCheckReport(Report):
             description,
             result,
             annotations_string=annotations_string,
+            force_pass=force_pass,
         )
 
     @staticmethod

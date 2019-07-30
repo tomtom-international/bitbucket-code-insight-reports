@@ -68,3 +68,25 @@ def test_init(
     report_info += "Result: {result}\n".format(result=result)
     report_info += "Annotations: {annot}\n".format(annot=json.dumps(test_annotation, indent=4, sort_keys=True))
     assert report_info == test_report.output_info()
+
+
+def test_force_pass(gen_annotations):
+    """
+    Ensure that using `force_pass` in initialization will make everything return passing
+    """
+    test_report = Report(
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        False,
+        json.dumps(gen_annotations("/test", 3, "test")),
+        return_code=1,
+        force_pass=True,
+    )
+    assert test_report.result == "PASS"
+    assert test_report.return_code == 0
