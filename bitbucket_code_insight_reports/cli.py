@@ -26,7 +26,10 @@ def parse_args(args):
         "--silent", action="store_true", default=False, help="Don't output what has been sent to BitBucket."
     )
     parser.add_argument(
-        "--force_pass", action="store_true", default=False, help="Ensure that the report on BitBucket will be passing."
+        "--force_pass",
+        action="store_true",
+        default=False,
+        help="Ensure that the report status on BitBucket can only be passing.",
     )
 
     auth_group = parser.add_argument_group("Authentication Options")

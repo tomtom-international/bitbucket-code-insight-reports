@@ -69,16 +69,19 @@ class Report:
         if force_pass:
             self.return_code = 0
             self.result = "PASS"
+            return
+
+        self.result = result
+        if return_code:
+            self.return_code = return_code
+            return
+
+        # Determines the return code status if it isn't set, as is the case for checks not directly invoked from this tool
+        if self.result == "PASS":
+            self.return_code = 0
         else:
-            self.result = result
-            # Determines the return code status if it isn't set, as is the case for checks not directly invoked from this tool
-            if return_code is None:
-                if self.result == "PASS":
-                    self.return_code = 0
-                else:
-                    self.return_code = 1
-            else:
-                self.return_code = return_code
+            self.return_code = 1
+        return
 
     @staticmethod
     def _build_base_report_url(base_url, project_key, repo_slug, commit_id, key):
