@@ -37,12 +37,12 @@ class Report:
             commit_id: commit ID for the target PR
             key: key to use for the report
             title: title to use for the report
-            description: description to provide on the report
+            description: description to provide for the report
             result: result to use for the report (PASS/FAIL)
             annotations_string: (optional) JSON string of annotations for the report
-            return_code: (Optional) Return code to return from the tool
-            file_name: (Optional) file name to read results from
-            force_pass: (Optional) Boolean, true to force setting the result to PASS and the return_code to 0 (for use in non-blocking CI steps)
+            return_code: (optional) return code to return from the tool
+            file_name: (optional) file name to read results from
+            force_pass: (optional) Boolean, true to force setting the result to PASS and the return_code to 0 (for use in non-blocking CI steps)
         """
         self.auth = auth
         self.title = title
