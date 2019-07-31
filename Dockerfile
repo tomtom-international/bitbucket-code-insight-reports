@@ -3,7 +3,7 @@ ARG PYTHON_BASE=python:3.6.7-alpine3.7
 # The *builder* image is used mainly by the [Jenkins Python pipeline](https://github.com/tomtom-international/jsl/blob/master/vars/pythonSetupPyPipeline.groovy)
 # during the build & validation stages only. Removing it will result in a failure in Jenkins.
 # This image can as well be used for local testing.
-FROM tomtom-docker-registry.bintray.io/python/python3-pkg-builder:0.0.22 AS builder
+FROM tomtom-docker-registry.bintray.io/python/python3-pkg-builder:0.0.23 AS builder
 COPY requirements_dev.txt /
 RUN pip install -r /requirements_dev.txt
 
@@ -16,8 +16,8 @@ RUN pip install --upgrade virtualenv==16.6.0 && python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 COPY . /code
 WORKDIR /code
-RUN python setup.py sdist \
-  && pip install dist/*
+RUN DIST_DIR=$(mktemp -d) && python setup.py sdist --dist-dir $DIST_DIR\
+  && pip install $DIST_DIR/*.tar.gz
 
 
 FROM alpine:latest as terraform_unzip
