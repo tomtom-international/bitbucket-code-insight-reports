@@ -50,6 +50,7 @@ class TerraformReport(Report):
             result,
             annotations_string=annotations_string,
             return_code=return_code,
+            file_name=file_name,
             force_pass=force_pass,
         )
 
