@@ -22,7 +22,7 @@ RUN DIST_DIR=$(mktemp -d) && python setup.py sdist --dist-dir $DIST_DIR\
 
 FROM alpine:latest as terraform_unzip
 
-RUN apk add --update unzip wget && wget https://releases.hashicorp.com/terraform/0.12.2/terraform_0.12.2_linux_amd64.zip
+RUN apk add --update unzip wget && wget https://releases.hashicorp.com/terraform/0.12.6/terraform_0.12.6_linux_amd64.zip
 RUN unzip terraform_0.12.2_linux_amd64.zip 
 
 FROM $PYTHON_BASE
