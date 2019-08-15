@@ -5,4 +5,4 @@
 __project__ = "bitbucket-code-insight-reports"
 __author__ = "Eugene Davis"
 __email__ = "eugene.davis@tomtom.com"
-__version__ = "0.0.13"
+__version__ = "0.0.14-dev"
